@@ -11,6 +11,7 @@ const campsiteRouter = require('./routes/campsiteRouter');
 const promotionRouter = require('./routes/promotionRouter');
 const partnerRouter = require('./routes/partnerRouter');
 const mongoose = require('mongoose');
+const uploadRouter = require('./routes/uploadRouter');
 
   const uri = config.mongoUrl;
   const connect = mongoose.connect(uri, {
@@ -42,6 +43,7 @@ const mongoose = require('mongoose');
   app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+  app.use('./imageUpload', uploadRouter); /* Creating the upload file use  */ 
 
 
   // midware forcing users to authenticate to the server. Data we dont mind 
@@ -53,10 +55,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/campsites', campsiteRouter);
 app.use('/promotion', promotionRouter);
 app.use('/partners', partnerRouter);
+app.use('/imageUpload', uploadRouter);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

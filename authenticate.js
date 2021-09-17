@@ -41,7 +41,6 @@ exports.jwtPassport = passport.use(
 
 exports.verifyAdmin = (req, res, next) => {
     if (req.user.admin) {
-        res.status = 202;
         return next();
     } else {
         err.status = 403; 
